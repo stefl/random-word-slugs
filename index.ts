@@ -7,7 +7,7 @@ interface FixedLengthArray<T extends any, L extends number> extends Array<T> {
   length: L;
 }
 
-type Case = "kebab" | "camel" | "title" | "lower" | "sentence";
+type Case = "kebab" | "camel" | "title" | "lower" | "sentence" | "snake";
 
 type Options<T, L extends number> = {
   partsOfSpeech: FixedLengthArray<T, L>;
@@ -87,7 +87,9 @@ function formatter(arr: string[], format: Case) {
       })
       .join(" ");
   }
-
+  if (format === "snake") {
+    return arr.join("_").toLowerCase();
+  }
   return arr
     .map((el) => {
       return el[0].toUpperCase() + el.slice(1).toLowerCase();
